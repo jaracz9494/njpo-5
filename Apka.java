@@ -12,6 +12,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -42,10 +44,15 @@ public class Apka extends javax.swing.JFrame {
         Tekst = new javax.swing.JTextArea();
         Otworz = new javax.swing.JButton();
         Zamknij = new javax.swing.JButton();
-        Test = new javax.swing.JTextField();
+        Sciezka = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        Analiza = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        Tekst.setEditable(false);
         Tekst.setColumns(20);
         Tekst.setRows(5);
         jScrollPane1.setViewportView(Tekst);
@@ -64,7 +71,16 @@ public class Apka extends javax.swing.JFrame {
             }
         });
 
-        Test.setEditable(false);
+        Sciezka.setEditable(false);
+
+        Analiza.setEditable(false);
+        Analiza.setColumns(20);
+        Analiza.setRows(5);
+        jScrollPane2.setViewportView(Analiza);
+
+        jLabel1.setText("Tekst z pliku");
+
+        jLabel2.setText("Analiza znaków");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -72,31 +88,42 @@ public class Apka extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Sciezka)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(Otworz)
-                        .addGap(18, 18, 18)
-                        .addComponent(Test, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(Zamknij)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Otworz)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Zamknij))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 118, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Otworz)
-                            .addComponent(Test, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Zamknij))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(189, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Otworz)
+                    .addComponent(Zamknij))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Sciezka, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         pack();
@@ -104,24 +131,27 @@ public class Apka extends javax.swing.JFrame {
 
     private void OtworzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OtworzActionPerformed
 
-     //JOptionPane.showMessageDialog(this, Tekst);
-        String plik;
+        String plik, zdanie;
+        List ArrayList = new ArrayList();
+        
         FileDialog fd =new FileDialog(this,"Wczytaj",FileDialog.LOAD);
         fd.setVisible(true);
         //String katalog=fd.getDirectory();
         //6String plik=fd.getFile();
         plik = fd.getDirectory()+fd.getFile();
         plik = plik.replace('\\', '/');
-        Test.setText(plik);
+        Sciezka.setText(plik);
         PrintWriter pw;
             try{
                 File file = new File(plik);
                 Scanner in = new Scanner(file);
                 
                 while (in.hasNext()) {
-                    String zdanie = in.nextLine();
-                    System.out.println(zdanie);
+                    zdanie = in.nextLine();
+                    Tekst.append(zdanie+"\n");
+                    ArrayList.add(zdanie);
                 }
+                System.out.println(ArrayList);
 
             } catch (IOException ex) {
                 System.out.println ("Brak pliku");
@@ -168,10 +198,14 @@ public class Apka extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea Analiza;
     private javax.swing.JButton Otworz;
+    private javax.swing.JTextField Sciezka;
     private javax.swing.JTextArea Tekst;
-    private javax.swing.JTextField Test;
     private javax.swing.JButton Zamknij;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

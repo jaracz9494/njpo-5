@@ -7,6 +7,12 @@ package cw1;
 
 import java.awt.FileDialog;
 import java.awt.Frame;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -99,11 +105,27 @@ public class Apka extends javax.swing.JFrame {
     private void OtworzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OtworzActionPerformed
 
      //JOptionPane.showMessageDialog(this, Tekst);
+        String plik;
         FileDialog fd =new FileDialog(this,"Wczytaj",FileDialog.LOAD);
         fd.setVisible(true);
         //String katalog=fd.getDirectory();
-        //String plik=fd.getFile();
-        Test.setText(fd.getDirectory()+fd.getFile());
+        //6String plik=fd.getFile();
+        plik = fd.getDirectory()+fd.getFile();
+        plik = plik.replace('\\', '/');
+        Test.setText(plik);
+        PrintWriter pw;
+            try{
+                File file = new File(plik);
+                Scanner in = new Scanner(file);
+                
+                while (in.hasNext()) {
+                    String zdanie = in.nextLine();
+                    System.out.println(zdanie);
+                }
+
+            } catch (IOException ex) {
+                System.out.println ("Brak pliku");
+            }
     }//GEN-LAST:event_OtworzActionPerformed
 
     private void ZamknijActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ZamknijActionPerformed

@@ -49,6 +49,7 @@ public class Apka extends javax.swing.JFrame {
         Analiza = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,6 +83,8 @@ public class Apka extends javax.swing.JFrame {
 
         jLabel2.setText("Analiza znaków");
 
+        jRadioButton1.setText("Bez uwzględniania wielkości liter");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -95,7 +98,9 @@ public class Apka extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(Otworz)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Zamknij))
+                                .addComponent(Zamknij)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButton1))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -104,7 +109,7 @@ public class Apka extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 118, Short.MAX_VALUE)))
+                        .addGap(0, 59, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -120,7 +125,8 @@ public class Apka extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Otworz)
-                    .addComponent(Zamknij))
+                    .addComponent(Zamknij)
+                    .addComponent(jRadioButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Sciezka, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(125, Short.MAX_VALUE))
@@ -136,6 +142,9 @@ public class Apka extends javax.swing.JFrame {
         List<Integer> ilosc = new ArrayList();
         boolean warunek = false;
         
+        Tekst.setText("");
+        Analiza.setText("");
+        
         FileDialog fd =new FileDialog(this,"Wczytaj",FileDialog.LOAD);
         fd.setVisible(true);
 
@@ -150,6 +159,8 @@ public class Apka extends javax.swing.JFrame {
                 while (in.hasNext()) {
                     
                     zdanie = in.nextLine();
+                    Tekst.append(zdanie+"\n");
+                    zdanie = zdanie.toUpperCase();
                     
                     for (int i=0; i<zdanie.length(); i++) {
                         
@@ -167,10 +178,14 @@ public class Apka extends javax.swing.JFrame {
                         }
                         warunek = false;
                     }
-                    
-                    Tekst.append(zdanie+"\n");
-                    
+                                        
                 }
+                
+                Analiza.append("Ilość poszczególnych liter:\n");
+                for (int i=0; i<ilosc.size(); i++) {
+                    Analiza.append(litera.get(i) + " - " + ilosc.get(i) + "\n");
+                }
+                
                 System.out.println(ilosc);
                 System.out.println(litera);
 
@@ -226,6 +241,7 @@ public class Apka extends javax.swing.JFrame {
     private javax.swing.JButton Zamknij;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables

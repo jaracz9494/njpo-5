@@ -132,12 +132,13 @@ public class Apka extends javax.swing.JFrame {
     private void OtworzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OtworzActionPerformed
 
         String plik, zdanie;
-        List ArrayList = new ArrayList();
+        List<Character> litera = new ArrayList();
+        List<Integer> ilosc = new ArrayList();
+        boolean warunek = false;
         
         FileDialog fd =new FileDialog(this,"Wczytaj",FileDialog.LOAD);
         fd.setVisible(true);
-        //String katalog=fd.getDirectory();
-        //6String plik=fd.getFile();
+
         plik = fd.getDirectory()+fd.getFile();
         plik = plik.replace('\\', '/');
         Sciezka.setText(plik);
@@ -147,11 +148,31 @@ public class Apka extends javax.swing.JFrame {
                 Scanner in = new Scanner(file);
                 
                 while (in.hasNext()) {
+                    
                     zdanie = in.nextLine();
+                    
+                    for (int i=0; i<zdanie.length(); i++) {
+                        
+                        for (int j=0; j<litera.size(); j++) {
+                            if (zdanie.charAt(i)==litera.get(j)) {
+                                ilosc.set(j, ilosc.get(j)+1);
+                                warunek = true;
+                                break;
+                            }
+                        }
+                        
+                        if (warunek==false) {
+                            litera.add(zdanie.charAt(i));
+                            ilosc.add(1);                                                        
+                        }
+                        warunek = false;
+                    }
+                    
                     Tekst.append(zdanie+"\n");
-                    ArrayList.add(zdanie);
+                    
                 }
-                System.out.println(ArrayList);
+                System.out.println(ilosc);
+                System.out.println(litera);
 
             } catch (IOException ex) {
                 System.out.println ("Brak pliku");

@@ -34,7 +34,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="Zamknij" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
+                              <Component id="wielkosc" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -47,6 +47,7 @@
                                   <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="59" max="32767" attributes="0"/>
                   </Group>
@@ -71,11 +72,13 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="Otworz" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="Zamknij" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="wielkosc" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="Sciezka" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="125" max="32767" attributes="0"/>
+              <EmptySpace pref="105" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -136,17 +139,22 @@
     </Container>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Tekst z pliku"/>
+        <Property name="text" type="java.lang.String" value="Tekst z pliku:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Analiza znak&#xf3;w"/>
+        <Property name="text" type="java.lang.String" value="Analiza znak&#xf3;w:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton1">
+    <Component class="javax.swing.JRadioButton" name="wielkosc">
       <Properties>
         <Property name="text" type="java.lang.String" value="Bez uwzgl&#x119;dniania wielko&#x15b;ci liter"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel3">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Aktualnie otwarty plik:"/>
       </Properties>
     </Component>
   </SubComponents>

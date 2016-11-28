@@ -6,17 +6,12 @@
 package cw1;
 
 import java.awt.FileDialog;
-import java.awt.Frame;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -49,7 +44,8 @@ public class Apka extends javax.swing.JFrame {
         Analiza = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        wielkosc = new javax.swing.JRadioButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,11 +75,13 @@ public class Apka extends javax.swing.JFrame {
         Analiza.setRows(5);
         jScrollPane2.setViewportView(Analiza);
 
-        jLabel1.setText("Tekst z pliku");
+        jLabel1.setText("Tekst z pliku:");
 
-        jLabel2.setText("Analiza znaków");
+        jLabel2.setText("Analiza znaków:");
 
-        jRadioButton1.setText("Bez uwzględniania wielkości liter");
+        wielkosc.setText("Bez uwzględniania wielkości liter");
+
+        jLabel3.setText("Aktualnie otwarty plik:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,7 +98,7 @@ public class Apka extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(Zamknij)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton1))
+                                .addComponent(wielkosc))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -108,7 +106,8 @@ public class Apka extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel3))
                         .addGap(0, 59, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -126,10 +125,12 @@ public class Apka extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Otworz)
                     .addComponent(Zamknij)
-                    .addComponent(jRadioButton1))
+                    .addComponent(wielkosc))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Sciezka, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
 
         pack();
@@ -147,10 +148,12 @@ public class Apka extends javax.swing.JFrame {
         
         FileDialog fd =new FileDialog(this,"Wczytaj",FileDialog.LOAD);
         fd.setVisible(true);
-
+        
         plik = fd.getDirectory()+fd.getFile();
         plik = plik.replace('\\', '/');
+ 
         Sciezka.setText(plik);
+        
         PrintWriter pw;
             try{
                 File file = new File(plik);
@@ -160,7 +163,10 @@ public class Apka extends javax.swing.JFrame {
                     
                     zdanie = in.nextLine();
                     Tekst.append(zdanie+"\n");
-                    zdanie = zdanie.toUpperCase();
+                    
+                    if (wielkosc.isSelected()) {
+                        zdanie = zdanie.toUpperCase();
+                    }                    
                     
                     for (int i=0; i<zdanie.length(); i++) {
                         
@@ -186,16 +192,14 @@ public class Apka extends javax.swing.JFrame {
                     Analiza.append(litera.get(i) + " - " + ilosc.get(i) + "\n");
                 }
                 
-                System.out.println(ilosc);
-                System.out.println(litera);
 
             } catch (IOException ex) {
-                System.out.println ("Brak pliku");
+                Sciezka.setText("Brak pliku");
             }
     }//GEN-LAST:event_OtworzActionPerformed
 
     private void ZamknijActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ZamknijActionPerformed
-        //zamykam xd
+        System.exit(0);
     }//GEN-LAST:event_ZamknijActionPerformed
 
     /**
@@ -241,8 +245,9 @@ public class Apka extends javax.swing.JFrame {
     private javax.swing.JButton Zamknij;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JRadioButton wielkosc;
     // End of variables declaration//GEN-END:variables
 }
